@@ -20,6 +20,7 @@ Ele utiliza **OpenStreetMap** como mapa base e **OpenRouteService** para cálcul
 - [Vite]
 - [TailwindCSS] 
 - [OpenStreetMap]
-- [OpenRouteService]  
+- [OpenRouteService]
+- [Leaflet] 
 
 ---
