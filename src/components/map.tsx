@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { Pesquisa } from "./input";
 
+
 function MyComponent() {
   const map = useMap();
 
@@ -45,7 +46,7 @@ export function Map() {
       </MapContainer>
 
       <div className="absolute top-4 left-12 z-50 ">
-        <Pesquisa />
+        <Pesquisa onSearch={handleSearch}/>
       </div>
     </div>
   );
