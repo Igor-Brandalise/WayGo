@@ -1,12 +1,7 @@
+import { Map } from "./components/map";
 
 function App() {
-  
-
-  return (
-    <>
-
-    </>
-  )
+  return <Map />;
 }
 
-export default App
+export default App;
