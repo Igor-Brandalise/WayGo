@@ -1,31 +1,29 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { useRef } from "react";
 import { Pesquisa } from "./input";
-
-
-function MyComponent() {
-  const map = useMap();
-
-  const [center, setCenter] = useState([55.5, 30.9]);
-
-  useEffect(() => {
-    const handleMove = () => {
-      const novoCentro = map.getCenter();
-      setCenter([novoCentro.lat, novoCentro.lng]);
-
-      console.log(novoCentro);
-    };
-
-    map.on("moveend", handleMove);
-    return () => {
-      map.off("moveend", handleMove);
-    };
-  }, [map]);
-
-  return null;
-}
+import L, { Map as LeafletMap } from "leaflet";
 
 export function Map() {
+  const mapRef = useRef<L.Map | null>(null);
+
+  const handleSearch = async (query: string) => {
+    if (!query) return;
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      query
+    )}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.length > 0 && mapRef.current) {
+      const { lat, lon } = data[0];
+      mapRef.current.setView([parseFloat(lat), parseFloat(lon)], 15);
+    }
+
+  
+  };
+
   return (
     <div className="relative h-screen w-full">
       <MapContainer
@@ -37,16 +35,16 @@ export function Map() {
           position: "relative",
           zIndex: 0,
         }}
+        ref={mapRef}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        <MyComponent />
       </MapContainer>
 
       <div className="absolute top-4 left-12 z-50 ">
-        <Pesquisa onSearch={handleSearch}/>
+        <Pesquisa onSearch={handleSearch} />
       </div>
     </div>
   );

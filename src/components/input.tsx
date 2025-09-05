@@ -14,7 +14,7 @@ export function Pesquisa({ onSearch }: PesquisaProps) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit= { handleSubmit } >
         <input
           type="search"
           value={value}
