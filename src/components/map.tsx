@@ -12,16 +12,16 @@ export function Map() {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
       query
     )}`;
-
     const res = await fetch(url);
     const data = await res.json();
 
     if (data.length > 0 && mapRef.current) {
       const { lat, lon } = data[0];
-      mapRef.current.setView([parseFloat(lat), parseFloat(lon)], 15);
-    }
+      const latitude = parseFloat(lat);
+      const longitude = parseFloat(lon);
 
-  
+      mapRef.current.setView([latitude, longitude], 15);
+    }
   };
 
   return (
