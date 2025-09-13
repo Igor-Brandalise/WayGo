@@ -3,6 +3,8 @@ import { useRef } from "react";
 import { Pesquisa } from "./input";
 import L, { Map as LeafletMap } from "leaflet";
 
+
+
 export function Map() {
   const mapRef = useRef<L.Map | null>(null);
 
@@ -21,6 +23,7 @@ export function Map() {
       const longitude = parseFloat(lon);
 
       mapRef.current.setView([latitude, longitude], 15);
+      L.marker([latitude, longitude]).addTo(mapRef.current);
     }
   };
 
@@ -41,6 +44,7 @@ export function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
+        
       </MapContainer>
 
       <div className="absolute top-4 left-12 z-50 ">
